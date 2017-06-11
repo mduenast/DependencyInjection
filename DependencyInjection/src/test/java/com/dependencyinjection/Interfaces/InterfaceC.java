@@ -14,25 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mdt3.dependencyinjection.Implementations;
-
-import com.mdt3.dependencyinjection.Interfaces.InterfaceB;
-import com.mdt3.dependencyinjection.Interfaces.InterfaceD;
+package com.dependencyinjection.Interfaces;
 
 /**
  *
  * @author naluem
  */
-public class ImplementationB1 implements InterfaceB {
-
-    private InterfaceD d;
-
-    public ImplementationB1(InterfaceD d) {
-        this.d = d;
-    }
-
-    public InterfaceD getD() {
-        return d;
-    }
+public interface InterfaceC {
 
 }

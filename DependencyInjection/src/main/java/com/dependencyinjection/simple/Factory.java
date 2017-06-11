@@ -14,15 +14,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mdt3.dependencyinjection.simple;
+package com.dependencyinjection.simple;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import com.dependencyinjection.common.DependencyException;
 
 /**
  *
  * @author naluem
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ContainerImplementationA1Test.class})
-public class ContainerTestSuite {}
+public interface Factory {
+
+    public Object create(Object... parameters) throws DependencyException;
+
+}

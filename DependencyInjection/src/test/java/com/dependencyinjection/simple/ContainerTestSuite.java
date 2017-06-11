@@ -14,12 +14,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mdt3.dependencyinjection.Interfaces;
+package com.dependencyinjection.simple;
+
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  *
  * @author naluem
  */
-public interface InterfaceC {
-    
+@RunWith(Suite.class)
+@Suite.SuiteClasses({ContainerTest.class})
+public class ContainerTestSuite {
 }

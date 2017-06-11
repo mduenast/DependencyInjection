@@ -14,16 +14,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mdt3.dependencyinjection.simple;
-
-import com.mdt3.dependencyinjection.common.DependencyException;
+package com.dependencyinjection.common;
 
 /**
  *
  * @author naluem
  */
-public interface Factory {
+public class DependencyException extends Exception {
 
-    public Object create(Object... parameters) throws DependencyException;
+    public DependencyException(Exception cause) {
+        super(cause);
+    }
+
+    public DependencyException(String message) {
+        super(message);
+    }
 
 }

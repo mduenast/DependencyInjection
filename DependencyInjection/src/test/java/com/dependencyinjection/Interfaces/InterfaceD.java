@@ -14,12 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mdt3.dependencyinjection.complex;
+package com.dependencyinjection.Interfaces;
 
 /**
  *
  * @author naluem
  */
-public class Factory<E> {
-    
+public interface InterfaceD {
+
 }

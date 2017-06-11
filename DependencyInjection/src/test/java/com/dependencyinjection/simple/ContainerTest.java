@@ -14,13 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mdt3.dependencyinjection.simple;
+package com.dependencyinjection.simple;
 
-import com.mdt3.dependencyinjection.Implementations.ImplementationD1;
-import com.mdt3.dependencyinjection.Interfaces.InterfaceD;
-import com.mdt3.dependencyinjection.common.DependencyException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.dependencyinjection.Implementations.ImplementationD1;
+import com.dependencyinjection.Interfaces.InterfaceD;
+import com.dependencyinjection.common.DependencyException;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import org.junit.After;
@@ -34,30 +32,17 @@ import static org.junit.Assert.*;
  *
  * @author naluem
  */
-public class ContainerImplementationA1Test {
-
-    public ContainerImplementationA1Test() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
+public class ContainerTest {
+    
+    private Injector injector;
 
     @Before
     public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
+        injector = new Container();
     }
 
     @Test
-    public void getObjectImplementationA1Test() throws DependencyException {
-        Injector injector = new Container();
+    public void getObjectTest() throws DependencyException {
         injector.registerConstant("I", 42);
         injector.registerFactory("D", new FactoryD1(), "I");
         InterfaceD d = (InterfaceD) injector.getObject("D");
@@ -68,7 +53,6 @@ public class ContainerImplementationA1Test {
 
     @Test(expected = DependencyException.class)
     public void getObjectUnderUnregisteredNameTest() throws DependencyException {
-        Injector injector = new Container();
         injector.registerConstant("I", 42);
         injector.registerFactory("D", new FactoryD1(), "I");
         InterfaceD d = (InterfaceD) injector.getObject("H");
@@ -76,7 +60,6 @@ public class ContainerImplementationA1Test {
 
     @Test(expected = DependencyException.class)
     public void getObjectWithoutAllDependenciesTest() throws DependencyException {
-        Injector injector = new Container();
         injector.registerConstant("I", 42);
         //injector.registerFactory("D", new FactoryD1(), "I");
         InterfaceD d = (InterfaceD) injector.getObject("D");
@@ -84,14 +67,12 @@ public class ContainerImplementationA1Test {
 
     @Test(expected = DependencyException.class)
     public void registerConstantWithRegisteredNameTest() throws DependencyException {
-        Injector injector = new Container();
         injector.registerConstant("I", 42);
         injector.registerConstant("I", 42);
     }
-    
+
     @Test(expected = DependencyException.class)
-    public void registerIncorrectConstantTest() throws DependencyException{
-        Injector injector = new Container();
+    public void registerIncorrectConstantTest() throws DependencyException {
         injector.registerConstant("I", "42");
         injector.registerFactory("D", new FactoryD1(), "I");
         InterfaceD d = (InterfaceD) injector.getObject("D");
@@ -99,7 +80,6 @@ public class ContainerImplementationA1Test {
 
     @Test(expected = DependencyException.class)
     public void registerFactoryWithRegisteredNameTest() throws DependencyException {
-        Injector injector = new Container();
         injector.registerConstant("I", 42);
         injector.registerFactory("D", new FactoryD1(), "I");
         injector.registerFactory("D", new FactoryD1(), "I");
@@ -107,7 +87,6 @@ public class ContainerImplementationA1Test {
 
     @Test(expected = DependencyException.class)
     public void registerIncorrectFactoryTest() throws DependencyException {
-        Injector injector = new Container();
         injector.registerConstant("I", 42);
         injector.registerFactory("D", new FactoryA1(), "I");
         InterfaceD d = (InterfaceD) injector.getObject("D");

@@ -14,26 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mdt3.dependencyinjection.simple;
-
-import com.mdt3.dependencyinjection.Implementations.ImplementationC1;
-import com.mdt3.dependencyinjection.common.DependencyException;
+package com.dependencyinjection.complex;
 
 /**
  *
  * @author naluem
+ * @param <E>
  */
-public class FactoryC1 implements Factory {
+public class Factory<E> {
 
-    @Override
-    public ImplementationC1 create(Object... parameters)
-            throws DependencyException {
-        String s;
-        try {
-            s = (String) parameters[0];
-        } catch (ClassCastException | ArrayIndexOutOfBoundsException ex) {
-            throw new DependencyException(ex);
-        }
-        return new ImplementationC1(s);
-    }
 }

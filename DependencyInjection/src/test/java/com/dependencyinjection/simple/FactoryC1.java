@@ -14,24 +14,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mdt3.dependencyinjection.Implementations;
+package com.dependencyinjection.simple;
 
-import com.mdt3.dependencyinjection.Interfaces.InterfaceC;
+import com.dependencyinjection.Implementations.ImplementationC1;
+import com.dependencyinjection.common.DependencyException;
 
 /**
  *
  * @author naluem
  */
-public class ImplementationC1 implements InterfaceC {
+public class FactoryC1 implements Factory {
 
-    private String s;
-
-    public ImplementationC1(String s) {
-        this.s = s;
+    @Override
+    public ImplementationC1 create(Object... parameters)
+            throws DependencyException {
+        String s;
+        try {
+            s = (String) parameters[0];
+        } catch (ClassCastException | ArrayIndexOutOfBoundsException ex) {
+            throw new DependencyException(ex);
+        }
+        return new ImplementationC1(s);
     }
-
-    public String getS() {
-        return s;
-    }
-
 }

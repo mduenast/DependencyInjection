@@ -14,27 +14,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mdt3.dependencyinjection.simple;
+package com.dependencyinjection.simple;
 
-import com.mdt3.dependencyinjection.Implementations.ImplementationB1;
-import com.mdt3.dependencyinjection.Interfaces.InterfaceD;
-import com.mdt3.dependencyinjection.common.DependencyException;
+import com.dependencyinjection.Implementations.ImplementationA1;
+import com.dependencyinjection.Interfaces.InterfaceB;
+import com.dependencyinjection.Interfaces.InterfaceC;
+import com.dependencyinjection.common.DependencyException;
 
 /**
  *
  * @author naluem
  */
-public class FactoryB1 implements Factory {
+public class FactoryA1 implements Factory {
 
     @Override
-    public ImplementationB1 create(Object... parameters)
+    public ImplementationA1 create(Object... parameters)
             throws DependencyException {
-        InterfaceD d;
+        InterfaceB b;
+        InterfaceC c;
         try {
-            d = (InterfaceD) parameters[0];
+            b = (InterfaceB) parameters[0];
+            c = (InterfaceC) parameters[1];
         } catch (ClassCastException | ArrayIndexOutOfBoundsException ex) {
             throw new DependencyException(ex);
         }
-        return new ImplementationB1(d);
+        return new ImplementationA1(b, c);
     }
 }
