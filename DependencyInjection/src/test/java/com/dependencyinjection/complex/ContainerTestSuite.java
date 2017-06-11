@@ -14,22 +14,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.dependencyinjection.simple;
+package com.dependencyinjection.complex;
 
-import com.dependencyinjection.common.DependencyException;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  *
  * @author naluem
  */
-public interface Injector {
-
-    public void registerConstant(String name, Object value)
-            throws DependencyException;
-
-    public void registerFactory(String name, Factory creator, String... parameters)
-            throws DependencyException;
-
-    public Object getObject(String name) throws DependencyException;
-
+@RunWith(Suite.class)
+@Suite.SuiteClasses({ContainerTest.class})
+public class ContainerTestSuite {
 }

@@ -16,11 +16,14 @@
  */
 package com.dependencyinjection.complex;
 
+import com.dependencyinjection.common.DependencyException;
+
 /**
  *
  * @author naluem
  * @param <E>
  */
-public class Factory<E> {
+public interface Factory<E> {
 
+    E create(Object... parameters) throws DependencyException;
 }

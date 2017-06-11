@@ -39,7 +39,8 @@ public class Container implements Injector {
     }
 
     @Override
-    public void registerConstant(String name, Object value) throws DependencyException {
+    public void registerConstant(String name, Object value)
+            throws DependencyException {
         if (constants.containsKey(name)) {
             throw new DependencyException("");
         }
@@ -47,7 +48,8 @@ public class Container implements Injector {
     }
 
     @Override
-    public void registerFactory(String name, Factory creator, String... parameters) throws DependencyException {
+    public void registerFactory(String name, Factory creator, String... parameters)
+            throws DependencyException {
         if (factories.containsKey(name) || this.parameters.containsKey(name)) {
             throw new DependencyException("");
         }
@@ -69,11 +71,11 @@ public class Container implements Injector {
     }
 
     private Object[] _getParameters(String[] keys) {
-        List<Object> parameters = new ArrayList<>();
+        List<Object> prms = new ArrayList<>();
         for (String key : keys) {
-            parameters.add(constants.get(key));
+            prms.add(constants.get(key));
         }
-        return parameters.toArray();
+        return prms.toArray();
     }
 
 }

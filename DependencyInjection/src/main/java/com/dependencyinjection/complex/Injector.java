@@ -16,10 +16,18 @@
  */
 package com.dependencyinjection.complex;
 
+import com.dependencyinjection.common.DependencyException;
+
 /**
  *
  * @author naluem
  */
-public class Injector {
+public interface Injector {
 
+    public <E> void registerConstant(Class<E> name, E value) throws DependencyException;
+
+    public <E> void registerFactory(Class<E> name, Factory<? extends E> creator, 
+            Class<?>... parameters) throws DependencyException;
+
+    public <E> E getObject(Class<E> name) throws DependencyException;
 }

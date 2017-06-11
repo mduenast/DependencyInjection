@@ -14,22 +14,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.dependencyinjection.simple;
+package com.dependencyinjection.complex;
 
+import com.dependencyinjection.Implementations.ImplementationA1;
+import com.dependencyinjection.Interfaces.InterfaceB;
+import com.dependencyinjection.Interfaces.InterfaceC;
 import com.dependencyinjection.common.DependencyException;
 
 /**
  *
  * @author naluem
  */
-public interface Injector {
+public class FactoryA1 implements Factory<ImplementationA1> {
 
-    public void registerConstant(String name, Object value)
-            throws DependencyException;
-
-    public void registerFactory(String name, Factory creator, String... parameters)
-            throws DependencyException;
-
-    public Object getObject(String name) throws DependencyException;
-
+    @Override
+    public ImplementationA1 create(Object... parameters) throws DependencyException {
+        InterfaceB b;
+        InterfaceC c;
+        try {
+            b = (InterfaceB) parameters[0];
+            c = (InterfaceC) parameters[1];
+        } catch (ClassCastException | ArrayIndexOutOfBoundsException ex) {
+            throw new DependencyException(ex);
+        }
+        return new ImplementationA1(b, c);
+    }
 }

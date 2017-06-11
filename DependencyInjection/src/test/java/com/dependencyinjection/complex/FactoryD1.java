@@ -14,22 +14,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.dependencyinjection.simple;
+package com.dependencyinjection.complex;
 
+import com.dependencyinjection.Implementations.ImplementationD1;
 import com.dependencyinjection.common.DependencyException;
 
 /**
  *
  * @author naluem
  */
-public interface Injector {
+public class FactoryD1 implements Factory<ImplementationD1> {
 
-    public void registerConstant(String name, Object value)
-            throws DependencyException;
-
-    public void registerFactory(String name, Factory creator, String... parameters)
-            throws DependencyException;
-
-    public Object getObject(String name) throws DependencyException;
-
+    @Override
+    public ImplementationD1 create(Object... parameters) throws DependencyException {
+        int i;
+        try {
+            i = (int) parameters[0];
+        } catch (ClassCastException | ArrayIndexOutOfBoundsException ex) {
+            throw new DependencyException(ex);
+        }
+        return new ImplementationD1(i);
+    }
 }

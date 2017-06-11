@@ -14,9 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.dependencyinjection.simple;
+package com.dependencyinjection.complex;
 
 import com.dependencyinjection.Implementations.ImplementationD1;
+import com.dependencyinjection.Interfaces.InterfaceA;
 import com.dependencyinjection.Interfaces.InterfaceD;
 import com.dependencyinjection.common.DependencyException;
 import static org.hamcrest.CoreMatchers.instanceOf;
@@ -40,52 +41,53 @@ public class ContainerTest {
 
     @Test
     public void getObjectTest() throws DependencyException {
-        injector.registerConstant("I", 42);
-        injector.registerFactory("D", new FactoryD1(), "I");
-        InterfaceD d = (InterfaceD) injector.getObject("D");
+        injector.registerConstant(Integer.class, 42);
+        injector.registerFactory(InterfaceD.class, new FactoryD1(), Integer.class);
+        InterfaceD d = (InterfaceD) injector.getObject(InterfaceD.class);
         assertThat(d, is(instanceOf(ImplementationD1.class)));
         ImplementationD1 d1 = (ImplementationD1) d;
         assertThat(d1.getI(), is(42));
     }
-
+    
     @Test(expected = DependencyException.class)
     public void getObjectUnderUnregisteredNameTest() throws DependencyException {
-        injector.registerConstant("I", 42);
-        injector.registerFactory("D", new FactoryD1(), "I");
-        InterfaceD d = (InterfaceD) injector.getObject("H");
+        injector.registerConstant(Integer.class, 42);
+        injector.registerFactory(InterfaceD.class, new FactoryD1(), Integer.class);
+        InterfaceD d = (InterfaceD) injector.getObject(InterfaceA.class);
     }
 
     @Test(expected = DependencyException.class)
     public void getObjectWithoutAllDependenciesTest() throws DependencyException {
-        injector.registerConstant("I", 42);
-        //injector.registerFactory("D", new FactoryD1(), "I");
-        InterfaceD d = (InterfaceD) injector.getObject("D");
+        injector.registerConstant(Integer.class, 42);
+        //injector.registerFactory(InterfaceD.class, new FactoryD1(), Integer.class);
+        InterfaceD d = (InterfaceD) injector.getObject(InterfaceD.class);
     }
 
     @Test(expected = DependencyException.class)
     public void registerConstantWithRegisteredNameTest() throws DependencyException {
-        injector.registerConstant("I", 42);
-        injector.registerConstant("I", 42);
+        injector.registerConstant(Integer.class, 42);
+        injector.registerConstant(Integer.class, 42);
     }
 
-    @Test(expected = DependencyException.class)
+    /*@Test(expected = DependencyException.class)
     public void registerIncorrectConstantTest() throws DependencyException {
-        injector.registerConstant("I", "42");
-        injector.registerFactory("D", new FactoryD1(), "I");
-        InterfaceD d = (InterfaceD) injector.getObject("D");
-    }
+        injector.registerConstant(Integer.class, 42);
+        injector.registerFactory(InterfaceD.class, new FactoryD1(),Integer.class);
+        InterfaceD d = (InterfaceD) injector.getObject(InterfaceD.class);
+    }*/
 
     @Test(expected = DependencyException.class)
     public void registerFactoryWithRegisteredNameTest() throws DependencyException {
-        injector.registerConstant("I", 42);
-        injector.registerFactory("D", new FactoryD1(), "I");
-        injector.registerFactory("D", new FactoryD1(), "I");
+        injector.registerConstant(Integer.class, 42);
+        injector.registerFactory(InterfaceD.class, new FactoryD1(), Integer.class);
+        injector.registerFactory(InterfaceD.class, new FactoryD1(), Integer.class);
     }
 
-    @Test(expected = DependencyException.class)
+    /*@Test(expected = DependencyException.class)
     public void registerIncorrectFactoryTest() throws DependencyException {
-        injector.registerConstant("I", 42);
-        injector.registerFactory("D", new FactoryA1(), "I");
-        InterfaceD d = (InterfaceD) injector.getObject("D");
-    }
+        injector.registerConstant(Integer.class, 42);
+        injector.registerFactory(InterfaceD.class, new FactoryA1(), Integer.class);
+        InterfaceD d = (InterfaceD) injector.getObject(InterfaceD.class);
+    }*/
+    
 }
