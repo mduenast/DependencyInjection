@@ -16,14 +16,13 @@
  */
 package complex;
 
-import common.DependencyException;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  *
  * @author naluem
- * @param <E>
  */
-public interface Factory<E> {
-
-    public E create(Object... parameters) throws DependencyException;
-}
+@RunWith(Suite.class)
+@Suite.SuiteClasses({ContainerDUnitTest.class})
+public class ContainerTestSuite {}

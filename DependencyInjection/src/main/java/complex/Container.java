@@ -17,6 +17,10 @@
 package complex;
 
 import common.DependencyException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -24,19 +28,55 @@ import common.DependencyException;
  */
 public class Container implements Injector {
 
+    private final Map<Class<?>, Object> constants = new HashMap<>();
+    private final Map<Class<?>, DependencyEntry> factories = new HashMap<>();
+
     @Override
     public <E> void registerConstant(Class<E> name, E value) throws DependencyException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (this.constants.containsKey(name)) {
+            throw new DependencyException("Unexpected entry : Constant was registered");
+        }
+        this.constants.put(name, value);
     }
 
     @Override
-    public <E> void registerFactory(Class<E> name, Factory<? extends E> creator, Class<?>... parameters) throws DependencyException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public <E> void registerFactory(Class<E> name, Factory<? extends E> creator, 
+            Class<?>... parameters) throws DependencyException {
+        if (this.factories.containsKey(name)) {
+            throw new DependencyException("Unexpected entry : Factory was registered");
+        }
+        this.factories.put(name, new DependencyEntry(creator, parameters));
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <E> E getObject(Class<E> name) throws DependencyException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (!this.factories.containsKey(name)) {
+            throw new DependencyException("Illegal state. Object that you want to create hasn't a factory to create it.");
+        }
+        DependencyEntry dependencyEntry = this.factories.get(name);
+        List<Object> parameters = new ArrayList<>();
+        for (Class<?> parameter : dependencyEntry.parameters) {
+            if (this.factories.containsKey(parameter)) {
+                parameters.add(this.getObject(parameter));
+            } else if (this.constants.containsKey(parameter)) {
+                parameters.add(this.constants.get(parameter));
+            } else {
+                throw new DependencyException("Object that you want to create hasn't some of its dependencies to create it.");
+            }
+        }
+        return (E) dependencyEntry.factory.create(parameters.toArray());
     }
 
+    private static class DependencyEntry {
+
+        private final Factory<?> factory;
+        private final Class<?>[] parameters;
+
+        public DependencyEntry(Factory<?> factory, Class<?>[] parameters) {
+            this.factory = factory;
+            this.parameters = parameters;
+        }
+
+    }
 }

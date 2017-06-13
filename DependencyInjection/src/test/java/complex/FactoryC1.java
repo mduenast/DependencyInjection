@@ -17,13 +17,23 @@
 package complex;
 
 import common.DependencyException;
+import implementations.ImplementationC1;
 
 /**
  *
  * @author naluem
- * @param <E>
  */
-public interface Factory<E> {
+public class FactoryC1 implements Factory<ImplementationC1> {
 
-    public E create(Object... parameters) throws DependencyException;
+    @Override
+    public ImplementationC1 create(Object... parameters)
+            throws DependencyException {
+        String s;
+        try {
+            s = (String) parameters[0];
+        } catch (ClassCastException | ArrayIndexOutOfBoundsException ex) {
+            throw new DependencyException(ex);
+        }
+        return new ImplementationC1(s);
+    }
 }
