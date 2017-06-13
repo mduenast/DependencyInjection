@@ -24,5 +24,5 @@ import org.junit.runners.Suite;
  * @author naluem
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ContainerDUnitTest.class})
+@Suite.SuiteClasses({ContainerDUnitTest.class,ContainerAUnitTest.class})
 public class ContainerTestSuite {}
