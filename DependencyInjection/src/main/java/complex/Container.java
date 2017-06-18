@@ -17,8 +17,8 @@
 package complex;
 
 import common.DependencyException;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -55,7 +55,7 @@ public class Container implements Injector {
             throw new DependencyException("Illegal state. Object that you want to create hasn't a factory to create it.");
         }
         DependencyEntry dependencyEntry = this.factories.get(name);
-        List<Object> parameters = new ArrayList<>();
+        List<Object> parameters = new LinkedList<>();
         for (Class<?> parameter : dependencyEntry.parameters) {
             if (this.factories.containsKey(parameter)) {
                 parameters.add(this.getObject(parameter));
